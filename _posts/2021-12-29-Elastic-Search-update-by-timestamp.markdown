@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Elastic Search conditional update by timestamp"
-date:   2021-12-29 14:35:50 -0600
+date:   2021-12-29 11:35:50 -0600
 categories: ES ElasticSearch Update
 ---
 I worked on a data sink system with a multitude of producers that may send updated versions of statistics objects through the network, such objects aren't partial updates, but actual full objects that have to be saved in Elastic Search, which means all the existing data is to be replaced or created if it's new, all while making sure of keeping only the latest version in ES for further search.
@@ -44,7 +44,8 @@ That 20% speedup, just by retrieving the timestamp instead of the whole thing, m
 
 Instead of going through the politics of requesting more resources, I began to explore the possibility of making server-side updates and verifications directly in ES. As expected, this was actually a common issue throughout the years and the search engines keep sending everyone to the same 4 year old resources with lots of comments about how it didn't work or didn't understand how to implement it.
 
-**Conditional update of an object in ES**
+Conditional update of an object in ES
+=====================================
 
 Given that we only care to keep the latest object based on the timestamp, this simplified things quite a bit. I actually read the ES [documentation][es-versioning], given the amount of questions posted in internet seems like no one has read all the way to the bottom.
 
